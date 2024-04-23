@@ -1,17 +1,16 @@
-FROM gitpod/workspace-full-vnc
+curl https://dl.google.com/linux/linux_signing_key.pub \
+    | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/chrome-remote-desktop.gpg
+echo "deb [arch=amd64] https://dl.google.com/linux/chrome-remote-desktop/deb stable main" \
+    | sudo tee /etc/apt/sources.list.d/chrome-remote-desktop.list
+sudo apt-get update
+sudo DEBIAN_FRONTEND=noninteractive \
+    apt-get install --assume-yes chrome-remote-desktop
 
-# Dependences for chrome
-RUN sudo apt-get update \
- && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y \
-   libgtk2.0-0 \
-   libgtk-3-0 \
-   libnotify-dev \
-   libgconf-2-4 \
-   libnss3 \
-   libxss1 \
-   libasound2 \
-   libxtst6 \
-   xauth \
-   xvfb \
- && sudo rm -rf /var/lib/apt/lists/*
- 
+
+
+sudo DEBIAN_FRONTEND=noninteractive \
+    apt install --assume-yes xfce4 desktop-base dbus-x11 xscreensaver
+
+sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" > /etc/chrome-remote-desktop-session'
+
+sudo systemctl disable lightdm.service
