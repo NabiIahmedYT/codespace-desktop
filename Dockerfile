@@ -1,17 +1,17 @@
 # Use ubuntu as the base image
 FROM ubuntu:latest
 
-# Install necessary packages
+# Install necessary packages without prompts
 RUN apt-get update && \
-    apt-get install -y curl gnupg xfce4 desktop-base dbus-x11 xscreensaver && \
+    apt-get install -y --no-install-recommends curl gnupg xfce4 desktop-base dbus-x11 xscreensaver && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Add Google Chrome Remote Desktop repository and install
-RUN curl https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+RUN curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     echo "deb [arch=amd64] https://dl.google.com/linux/chrome-remote-desktop/deb stable main" > /etc/apt/sources.list.d/chrome-remote-desktop.list && \
     apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y chrome-remote-desktop && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends chrome-remote-desktop && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
