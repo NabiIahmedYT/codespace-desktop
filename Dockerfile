@@ -21,7 +21,8 @@ RUN echo "deb [arch=amd64] https://dl.google.com/linux/chrome-remote-desktop/deb
 RUN apt-get update
 
 # Install Chrome Remote Desktop
-RUN DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes chrome-remote-desktop 32
+RUN DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes chrome-remote-desktop \
+    && echo "32" | sudo dpkg-reconfigure keyboard-configuration
 
 # Set default session for Chrome Remote Desktop
 RUN echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" > /etc/chrome-remote-desktop-session
