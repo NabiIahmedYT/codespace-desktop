@@ -1,0 +1,4 @@
+sudo bash -c 'echo "exec /etc/X11/Xsession /usr/bin/xfce4-session" > /etc/chrome-remote-desktop-session'
+    4  sudo systemctl disable lightdm.service
+sudo apt install gnome-terminal
+wget https://download-installer.cdn.mozilla.net/pub/firefox/releases/145.0.2/linux-x86_64/en-US/firefox-145.0.2.tar.xz
